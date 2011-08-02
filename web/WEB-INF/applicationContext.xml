@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <bean id="fontLibrary" class="com.pb.forms.FontLibrary">
+        <property name="fontMap">
+            <util:map>
+                <entry key="DejaVuSans-Bold" value="WEB-INF/fonts/dejavu/DejaVuSans-Bold.ttf" />
+                <entry key="DejaVuSansMono-Bold" value="WEB-INF/fonts/dejavu/DejaVuSansMono-Bold.ttf" />
+                <entry key="DejaVuSerif-Bold" value="WEB-INF/fonts/dejavu/DejaVuSerif-Bold.ttf" />
+            </util:map>
+        </property>
+        <property name="licenseMap">
+            <util:map>
+                <entry key="DejaVuSans-Bold" value="WEB-INF/fonts/dejavu/license.txt" />
+                <entry key="DejaVuSansMono-Bold" value="WEB-INF/fonts/dejavu/license.txt" />
+                <entry key="DejaVuSerif-Bold" value="WEB-INF/fonts/dejavu/license.txt" />
+            </util:map>
+        </property>
+    </bean>
+
+</beans>

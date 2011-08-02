@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<web-app>
+	<display-name>ticket-webapp</display-name>
+	<description>Web interface for ticket application</description>
+	
+<context-param>
+<param-name>contextConfigLocation</param-name>
+<param-value>/WEB-INF/applicationContext.xml</param-value>
+</context-param>
+<listener>
+<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+<servlet>
+<servlet-name>forms</servlet-name>
+<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+<load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+<servlet-name>forms</servlet-name>
+<url-pattern>/*</url-pattern>
+</servlet-mapping>
+	
+	<!--
+	<listener>
+		<listener-class>com.wrox.j2eedd.ticket.web.SessionCleanupListener</listener-class>
+	</listener>
+-->
+
+
+	<!-- This servlet must be loaded first to configure the log4j
+	 system and create the WebApplicationContext
+	<servlet>
+		<servlet-name>config</servlet-name>
+		<servlet-class>org.springframework.framework.web.context.ContextLoaderServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.framework.web.context.XMLWebApplicationContext</param-value>   		
+		</init-param>	
+		<load-on-startup>1</load-on-startup>
+	  </servlet>
+  
+  <servlet-mapping>
+          	<servlet-name>config</servlet-name>
+          	<url-pattern>/context/context.html</url-pattern>
+  </servlet-mapping>
+	 -->
+	
+</web-app>
