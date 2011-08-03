@@ -2,4 +2,4 @@ build/*
 .metadata/*
 .project
 .classpath
-target/*
+*/target/*

@@ -1,5 +1,5 @@
 # vim: syntax=ruby ts=2 sw=2 noexpandtab
-repositories.remote << 'file:///home/pbourke/.m2/repository'
+repositories.remote << 'http://www.ibiblio.org/maven2'
 
 define 'form-server' do
 	project.version = '0.0.1'
@@ -13,6 +13,7 @@ define 'form-server' do
 	end
 
 	define 'web' do
-		package :war
+		package(:war).libs += projects('fonts')
+		puts package(:war).libs.map(&:inspect)
 	end
 end
