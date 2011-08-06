@@ -1,0 +1,1 @@
+cd /home/pbourke/Documents/form-server-workspace/form-server/; ant clean dist; cd -; rm -r webapps/root; cp -r /home/pbourke/Documents/form-server-workspace/form-server/build/war/ webapps/root ; java -jar start.jar
