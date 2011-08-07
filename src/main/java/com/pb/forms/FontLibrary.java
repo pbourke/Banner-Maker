@@ -69,7 +69,6 @@ public class FontLibrary implements ServletContextAware {
             return licenseCacheMap.get(fontName);
         }
         
-        logger.info(licenseMap.toString());
         final String licenseResource = licenseMap.get(fontName);
         ServletContextResource scr = new ServletContextResource(servletContext, licenseResource);
         String license = toString(scr.getInputStream());
