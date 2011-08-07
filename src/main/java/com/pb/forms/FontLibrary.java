@@ -7,12 +7,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.ServletContextAware;
@@ -28,6 +33,10 @@ public class FontLibrary implements ServletContextAware {
     
     private Map<String, String> fontMap;
     private Map<String, String> licenseMap;
+
+    private Map<String, Font> fontCacheMap = new ConcurrentHashMap<String, Font>();
+    private Map<String, String> licenseCacheMap = new ConcurrentHashMap<String, String>();
+    
     private ServletContext servletContext;
     
     public void setFontMap(final Map<String, String> map) {
@@ -44,28 +53,31 @@ public class FontLibrary implements ServletContextAware {
     }
 
     Font getFont(final String fontName, final float size) throws DocumentException, IOException {
-        logger.info(fontMap.toString());
+        if ( fontCacheMap.containsKey(fontName) ) {
+            return fontCacheMap.get(fontName);
+        }
         final String fontResource = fontMap.get(fontName);
         ServletContextResource scr = new ServletContextResource(servletContext, fontResource);
         final File fontFile = scr.getFile();
-        return new Font(BaseFont.createFont(fontFile.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED), size);       
+        Font font = new Font(BaseFont.createFont(fontFile.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED), size);
+        fontCacheMap.put(fontName, font);
+        return font;       
     }
-    
+
     String getLicense(final String fontName) throws IOException {
+        if ( licenseCacheMap.containsKey(fontName) ) {
+            return licenseCacheMap.get(fontName);
+        }
+        
         logger.info(licenseMap.toString());
         final String licenseResource = licenseMap.get(fontName);
         ServletContextResource scr = new ServletContextResource(servletContext, licenseResource);
-        return toString(scr.getInputStream());
+        String license = toString(scr.getInputStream());
+        licenseCacheMap.put(fontName, license);
+        return license;
     }
 
     private String toString(final InputStream inputStream) throws IOException {
-        final BufferedInputStream bis = new BufferedInputStream(inputStream);
-        final StringBuffer sb = new StringBuffer();
-        byte[] buf = new byte[1024];
-        int num;
-        while ( (num = bis.read(buf)) > 0 ) {
-            sb.append(new String(buf, 0, num - 1));
-        }
-        return sb.toString();
+        return IOUtils.toString(inputStream);
     }
 }

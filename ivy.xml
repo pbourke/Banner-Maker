@@ -23,6 +23,7 @@
         	<dependency org="org.postgresql" name="com.springsource.org.postgresql.jdbc4" rev="8.3.604" conf="compile->compile,provided;runtime" />
         	<dependency org="org.apache.commons" name="com.springsource.org.apache.commons.dbcp" rev="1.2.2.osgi" conf="compile->compile,provided;runtime" />        	
         	<dependency org="org.hibernate" name="com.springsource.org.hibernate.annotations" rev="3.4.0.GA" conf="compile->compile,provided;runtime" />        	        	
+            <dependency org="org.apache.commons" name="com.springsource.org.apache.commons.io" rev="1.4.0" conf="compile->compile,provided;runtime" />
             <dependency org="com.itextpdf" name="itextpdf" rev="5.1.1" conf="compile->default;runtime->default"/>
 			<dependency org="org.slf4j" name="com.springsource.slf4j.jcl" rev="1.5.6" conf="compile->compile,provided;runtime" />
         	<conflict org="org.slf4j" module="com.springsource.slf4j.api" rev="1.5.6" />
