@@ -40,17 +40,18 @@ public class BannerController {
     public void banner(ServletRequest req, HttpServletResponse resp, OutputStream os) throws IOException, DocumentException {
         final String message = ServletRequestUtils.getStringParameter(req, "message", "Eat at Moe's");
         final String trimmedMessage = StringUtils.trimAllWhitespace(message);
-        final String requestedFont = ServletRequestUtils.getStringParameter(req, "font", "courier");
+        final String requestedFont = ServletRequestUtils.getStringParameter(req, "font", fontLibrary.defaultFont());
         final Font font = fontLibrary.getFont(requestedFont, 512.0f);
         logger.info(format("message='%s', font='%s'", trimmedMessage, requestedFont));        
 
-        if ( trimmedMessage.length() > 50 ) {
+        if ( trimmedMessage.length() > 50 || trimmedMessage.length() < 1 || !fontLibrary.contains(requestedFont) ) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         
         resp.setContentType("application/pdf");
         resp.setHeader("Content-Disposition", "attachment; filename=banner.pdf");
+        resp.setHeader("Connection", "close");
         
         Document doc = new Document(PageSize.LETTER);        
         PdfWriter pdfw = PdfWriter.getInstance(doc, os);
