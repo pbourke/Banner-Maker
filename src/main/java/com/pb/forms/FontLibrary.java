@@ -52,7 +52,7 @@ public class FontLibrary implements ServletContextAware {
         servletContext = sc;
     }
 
-    Font getFont(final String fontName, final float size) throws DocumentException, IOException {
+    public Font getFont(final String fontName, final float size) throws DocumentException, IOException {
         if ( fontCacheMap.containsKey(fontName) ) {
             return fontCacheMap.get(fontName);
         }
@@ -64,7 +64,7 @@ public class FontLibrary implements ServletContextAware {
         return font;       
     }
 
-    String getLicense(final String fontName) throws IOException {
+    public String getLicense(final String fontName) throws IOException {
         if ( licenseCacheMap.containsKey(fontName) ) {
             return licenseCacheMap.get(fontName);
         }
@@ -74,6 +74,14 @@ public class FontLibrary implements ServletContextAware {
         String license = toString(scr.getInputStream());
         licenseCacheMap.put(fontName, license);
         return license;
+    }
+
+    public boolean contains(final String requestedFont) {
+        return null != requestedFont && fontMap.containsKey(requestedFont);
+    }
+    
+    public String defaultFont() {
+        return "DejaVuSerif-Bold";
     }
 
     private String toString(final InputStream inputStream) throws IOException {

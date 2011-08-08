@@ -1,0 +1,5 @@
+Set up iptables forwarding from port 80 to an unprivileged port:
+
+/sbin/iptables -A FORWARD -p tcp --destination-port 80 -j ACCEPT
+/sbin/iptables -t nat -A PREROUTING -j REDIRECT -p tcp --destination-port 80 --to-ports 8080
+/sbin/iptables-save or /etc/init.d/iptables save 
