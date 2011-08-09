@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -78,5 +79,12 @@ public class BannerController {
             doc.add(table);
         }
         doc.close();
+    }
+    
+    @ExceptionHandler(Throwable.class)
+    public String exceptionHandler(final Throwable t, final HttpServletResponse resp) {
+        logger.info("in exceptionHandler", t);
+        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        return "error500";
     }
 }

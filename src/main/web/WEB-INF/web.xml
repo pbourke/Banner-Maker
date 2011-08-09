@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <web-app>
-	<display-name>ticket-webapp</display-name>
-	<description>Web interface for ticket application</description>
-	
-<context-param>
-<param-name>contextConfigLocation</param-name>
-<param-value>/WEB-INF/applicationContext.xml</param-value>
-</context-param>
-<listener>
-<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-</listener>
+  <display-name>forms-webapp</display-name>
+  <description>Form generation server</description>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
   <filter>
     <filter-name>GzipFilter</filter-name>
     <filter-class>org.eclipse.jetty.servlets.GzipFilter</filter-class>
@@ -23,41 +23,21 @@
   <filter-mapping>
     <filter-name>GzipFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping> 
+  </filter-mapping>
 
-<servlet>
-<servlet-name>forms</servlet-name>
-<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-<load-on-startup>1</load-on-startup>
-</servlet>
-<servlet-mapping>
-<servlet-name>forms</servlet-name>
-<url-pattern>/*</url-pattern>
-</servlet-mapping>
-	
-	<!--
-	<listener>
-		<listener-class>com.wrox.j2eedd.ticket.web.SessionCleanupListener</listener-class>
-	</listener>
--->
-
-
-	<!-- This servlet must be loaded first to configure the log4j
-	 system and create the WebApplicationContext
-	<servlet>
-		<servlet-name>config</servlet-name>
-		<servlet-class>org.springframework.framework.web.context.ContextLoaderServlet</servlet-class>
-		<init-param>
-			<param-name>contextClass</param-name>
-			<param-value>org.springframework.framework.web.context.XMLWebApplicationContext</param-value>   		
-		</init-param>	
-		<load-on-startup>1</load-on-startup>
-	  </servlet>
-  
+  <servlet>
+    <servlet-name>forms</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   <servlet-mapping>
-          	<servlet-name>config</servlet-name>
-          	<url-pattern>/context/context.html</url-pattern>
+    <servlet-name>forms</servlet-name>
+    <url-pattern>/*</url-pattern>
   </servlet-mapping>
-	 -->
-	
+
+  <error-page>
+    <error-code>500</error-code>
+    <location>/resources/error500.html</location>
+  </error-page>
+
 </web-app>
