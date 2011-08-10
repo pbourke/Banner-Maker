@@ -30,14 +30,15 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>forms</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 
   <error-page>
-    <error-code>500</error-code>
-    <location>/resources/error500.html</location>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/r/error500.html</location>
   </error-page>
 
 </web-app>

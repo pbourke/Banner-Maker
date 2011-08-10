@@ -81,10 +81,4 @@ public class BannerController {
         doc.close();
     }
     
-    @ExceptionHandler(Throwable.class)
-    public String exceptionHandler(final Throwable t, final HttpServletResponse resp) {
-        logger.info("in exceptionHandler", t);
-        resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        return "error500";
-    }
 }
